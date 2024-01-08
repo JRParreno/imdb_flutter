@@ -114,12 +114,10 @@ abstract class MaterialAppThemes {
       scaffoldBackgroundColor: colorScheme.background,
       appBarTheme: AppBarTheme(
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
         ),
         color: colorScheme.background,
-        shape:
-            Border(bottom: BorderSide(color: colorScheme.onSurface, width: 1)),
-        elevation: 4,
+        elevation: 0,
         foregroundColor: colorScheme.onBackground,
         iconTheme: IconThemeData(color: colorScheme.onBackground),
         actionsIconTheme: IconThemeData(color: colorScheme.primary),

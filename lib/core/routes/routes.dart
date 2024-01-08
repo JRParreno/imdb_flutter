@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_imdb/features/genres/presentation/genres_page.dart';
 import 'package:flutter_imdb/features/home/presentation/screen/home_screen.dart';
+import 'package:flutter_imdb/features/movies/presentation/movie_page.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   return MaterialPageRoute(
@@ -12,6 +13,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
         case GenresPage.routeName:
           final args = settings.arguments! as GenresArguments;
           return GenresPage(args: args);
+        case MoviePage.routeName:
+          return const MoviePage();
       }
 
       return const Scaffold(

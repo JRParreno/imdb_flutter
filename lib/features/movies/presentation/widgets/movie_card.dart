@@ -30,7 +30,7 @@ class MovieCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: movie.primaryImage.imageUrl,
                 placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                    const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),

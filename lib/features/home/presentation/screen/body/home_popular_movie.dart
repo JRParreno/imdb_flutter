@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_imdb/core/bloc/common/common_state.dart';
-import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/movies_bloc.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/home_movies_bloc.dart';
+import 'package:flutter_imdb/features/movies/presentation/movie_page.dart';
 import 'package:flutter_imdb/features/movies/presentation/widgets/movie_card.dart';
 import 'package:gap/gap.dart';
 
@@ -15,7 +16,7 @@ class HomePopularMovies extends StatelessWidget {
     return SizedBox(
       height: 275,
       width: double.infinity,
-      child: BlocBuilder<MoviesBloc, MoviesState>(
+      child: BlocBuilder<HomeMoviesBloc, HomeMoviesState>(
         builder: (context, state) {
           if (state is LoadingState) {
             return const CircularProgressIndicator();
@@ -25,7 +26,7 @@ class HomePopularMovies extends StatelessWidget {
             return const Text('Something went wrong');
           }
 
-          if (state is MoviesLoaded) {
+          if (state is HomeMoviesLoaded) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -36,10 +37,15 @@ class HomePopularMovies extends StatelessWidget {
                       'Popular Movies',
                       style: themeContext.textTheme.titleLarge,
                     ),
-                    Text(
-                      'View All',
-                      style: themeContext.textTheme.labelMedium
-                          ?.apply(color: Colors.orange),
+                    GestureDetector(
+                      child: Text(
+                        'View All',
+                        style: themeContext.textTheme.labelMedium
+                            ?.apply(color: Colors.orange),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(MoviePage.routeName);
+                      },
                     ),
                   ],
                 ),

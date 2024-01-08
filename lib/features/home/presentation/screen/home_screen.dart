@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_imdb/core/utils/spacing/v_space.dart';
+import 'package:flutter_imdb/features/fan_favorites/data/datasources/fan_favorite_repository_impl.dart';
 import 'package:flutter_imdb/features/genres/data/datasources/genre_repository_impl.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/fan_favorite_bloc/fan_favorite_bloc.dart';
 import 'package:flutter_imdb/features/home/presentation/bloc/genre_bloc/genre_bloc.dart';
-import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/movies_bloc.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/home_movies_bloc.dart';
 import 'package:flutter_imdb/features/home/presentation/bloc/tv_shows_bloc/tv_shows_bloc.dart';
 import 'package:flutter_imdb/features/home/presentation/screen/body/home_genres.dart';
 import 'package:flutter_imdb/features/home/presentation/screen/body/home_header.dart';
@@ -26,8 +28,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
   final GenreBloc genreBloc = GenreBloc(GenreRepositoryImpl());
-  final MoviesBloc moviesBloc = MoviesBloc(MovieRepositoryImpl());
+  final HomeMoviesBloc homeMoviesBloc = HomeMoviesBloc(MovieRepositoryImpl());
   final TvShowsBloc tvShowsBloc = TvShowsBloc(TVShowRepositoryImpl());
+  final FanFavoriteBloc fanFavoriteBloc =
+      FanFavoriteBloc(FanFavoriteRepositoryImpl());
 
   @override
   void initState() {
@@ -43,10 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
           create: (context) => genreBloc,
         ),
         BlocProvider(
-          create: (context) => moviesBloc,
+          create: (context) => homeMoviesBloc,
         ),
         BlocProvider(
           create: (context) => tvShowsBloc,
+        ),
+        BlocProvider(
+          create: (context) => fanFavoriteBloc,
         ),
       ],
       child: AnnotatedRegion(
@@ -64,6 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Vspace.md,
                     const HomeGenres(),
                     Vspace.lg,
+                    // const HomeFanFavorites(),
+                    // Vspace.md,
                     const HomePopularMovies(),
                     Vspace.md,
                     const HomePopularTVShows(),
@@ -79,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initBlocs() {
     genreBloc.add(OnGetGenreEvent());
-    moviesBloc.add(OnGetMoviesEvent());
+    homeMoviesBloc.add(OnGetHomeMoviesEvent());
     tvShowsBloc.add(OnGetTvShowsEvent());
+    fanFavoriteBloc.add(OnGetFanFavoritesEvent());
   }
 }

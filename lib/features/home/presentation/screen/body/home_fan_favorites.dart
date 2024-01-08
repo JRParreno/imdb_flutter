@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_imdb/core/bloc/common/common_state.dart';
-import 'package:flutter_imdb/features/home/presentation/bloc/tv_shows_bloc/tv_shows_bloc.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/fan_favorite_bloc/fan_favorite_bloc.dart';
 import 'package:flutter_imdb/features/movies/presentation/widgets/movie_card.dart';
 import 'package:gap/gap.dart';
 
-class HomePopularTVShows extends StatelessWidget {
-  const HomePopularTVShows({super.key});
+class HomeFanFavorites extends StatelessWidget {
+  const HomeFanFavorites({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class HomePopularTVShows extends StatelessWidget {
     return SizedBox(
       height: 275,
       width: double.infinity,
-      child: BlocBuilder<TvShowsBloc, TvShowsState>(
+      child: BlocBuilder<FanFavoriteBloc, FanFavoriteState>(
         builder: (context, state) {
           if (state is LoadingState) {
             return const CircularProgressIndicator();
@@ -25,7 +25,7 @@ class HomePopularTVShows extends StatelessWidget {
             return const Text('Something went wrong');
           }
 
-          if (state is TVShowsLoaded) {
+          if (state is FanFavoritesLoaded) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -50,7 +50,7 @@ class HomePopularTVShows extends StatelessWidget {
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       final movie =
-                          state.tvShowsModel.movies.data.list[index].title;
+                          state.fanFavoriteModel.movies.data.list[index].title;
                       return Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: MovieCard(

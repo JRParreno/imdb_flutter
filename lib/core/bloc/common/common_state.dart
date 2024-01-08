@@ -1,10 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/fan_favorite_bloc/fan_favorite_bloc.dart';
 import 'package:flutter_imdb/features/home/presentation/bloc/genre_bloc/genre_bloc.dart';
-import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/movies_bloc.dart';
+import 'package:flutter_imdb/features/home/presentation/bloc/movie_bloc/home_movies_bloc.dart';
 import 'package:flutter_imdb/features/home/presentation/bloc/tv_shows_bloc/tv_shows_bloc.dart';
+import 'package:flutter_imdb/features/movies/presentation/bloc/movie_bloc/movies_bloc.dart';
 
 abstract class CommonState extends Equatable
-    implements GenreState, MoviesState, TvShowsState {
+    implements
+        GenreState,
+        MoviesState,
+        TvShowsState,
+        FanFavoriteState,
+        HomeMoviesState {
   const CommonState();
   @override
   List<Object> get props => [];
